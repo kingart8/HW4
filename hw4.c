@@ -144,7 +144,7 @@ int main(void) {
 				cross[i][j] = 0;
 		}
 
-	//for (int j = 0; j < min; j++)															// выводим заполненный массив пересечения
+	//for (int j = 0; j < min; j++)															//выводим заполненный массив пересечения
 	//	for (int i = 0; i < min; i++)
 	//		printf("%d\t%s", cross[i][j], ((i == min - 1) ? "\n" : ""));
 
