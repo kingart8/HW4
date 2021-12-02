@@ -27,7 +27,7 @@ void free_2mas(int** mas, int size) {
 void enter_size(int* size) {
 	free(size);
 	size = (int*)malloc(sizeof(size));
-	printf("Enter the width: ");
+	printf("\nEnter the width: ");
 	scanf("%d", size);																			//пользователь вводит размер матрицы
 
 }
@@ -114,11 +114,11 @@ int main(void) {
 	int** first = NULL, ** second = NULL, ** cross = NULL, * size;
 	size = (int*)malloc(sizeof(size));
 
-	enter_size(size);
-	make_graph(&first, *size);
-	fill_graph(&first, *size);
+	enter_size(size);																	   	//Ввод размера массива
+	make_graph(&first, *size);																//Создание матрицы смежности графа
+	fill_graph(&first, *size);																//Заполнение матрицы смежности
 
-	int min = *size;
+	int min = *size;																		//Размер первой введенной матрицы становится минимальным
 
 
 	enter_size(size);
@@ -126,26 +126,25 @@ int main(void) {
 	fill_graph(&second, *size);
 
 	int max;
-	if (min > *size) {
+	if (min > *size) {																		//Нахождение минимального(для создания матрицы пересечения графов) и максимального (для дальнейшей очистки массивов) размеров введеных графов
 		max = min;
 		min = *size;
 	}
 	else
 		max = *size;
 
-	make_graph(&cross, *size);
+	make_graph(&cross, min);
 
-	for (int j = 0; j < min; j++)
-		for (int i = 0; i < min; i++) {
+	for (int j = 0; j < min; j++)															//Нахождение пересечения графов
+		for (int i = 0; i < min; i++) {														//Если конкретная ячейка матриц графов не пуста(!=0),то графы между вершинами имеют общее ребро или ребра, иначе если хотя бы у одного графа нет там ребра, то и нет пересечения вершин
 			if ((first[i][j] != 0) && (second[i][j] != 0)) {
-				if (first[i][j] == second[i][j])
-					cross[i][j] = 1;
+					cross[i][j] = (first[i][j] > second[i][j]) ? second[i][j] : first[i][j];
 			}
 			else
 				cross[i][j] = 0;
 		}
 
-	//for (int j = 0; j < min; j++)																// выводим заполненный массив пересечения
+	//for (int j = 0; j < min; j++)															// выводим заполненный массив пересечения
 	//	for (int i = 0; i < min; i++)
 	//		printf("%d\t%s", cross[i][j], ((i == min - 1) ? "\n" : ""));
 
@@ -165,6 +164,6 @@ int main(void) {
 	free(size);
 	size = NULL;
 	
-	printf("Intersection of two Graphs was complete.\n");
+	printf("The Intersection of two Graphs was complete.\n");
 	return 0;
 }
